@@ -1,18 +1,17 @@
 import axios from 'axios'
 
-// Base URL — bisa kamu ubah ke proxy "/api" nanti
+// 🌐 Base URL ke backend Spring Boot
 const BASE_URL = 'http://localhost:8080/api'
 
-// Buat instance axios
+// 🔹 Buat instance axios utama
 const api = axios.create({
   baseURL: BASE_URL,
-  withCredentials: false, // ❌ Jangan true kalau backend pakai JWT (bukan cookie)
   headers: {
     'Content-Type': 'application/json',
   },
 })
 
-// 🔹 Tambahkan token JWT di setiap request
+// 🔹 Interceptor: Tambahkan token JWT di setiap request
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token')
@@ -24,18 +23,16 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 )
 
-// 🔹 Tangani error global
+// 🔹 Interceptor: Tangani error global (401, 403, dll)
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Kalau token expired atau tidak valid
     if (error.response?.status === 401) {
       console.warn('⚠️ Token invalid atau expired, logout otomatis.')
       localStorage.removeItem('token')
       localStorage.removeItem('user')
       window.location.href = '/login'
     }
-    // Kalau user tidak punya izin
     if (error.response?.status === 403) {
       console.warn('🚫 Akses ditolak (403 Forbidden)')
       alert('Kamu tidak memiliki izin untuk mengakses data ini.')
@@ -44,9 +41,10 @@ api.interceptors.response.use(
   }
 )
 
-// 🔹 Endpoint Auth
+// 🔹 Auth API (login)
 export const authAPI = {
   login: (credentials) => api.post('/auth/login', credentials),
 }
 
+// 🔹 Export default supaya bisa dipakai semua service
 export default api

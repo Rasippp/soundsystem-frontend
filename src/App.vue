@@ -86,22 +86,7 @@ const handleLogout = () => {
 </script>
 
 <style>
-/* Custom global styles yang melengkapi Bootstrap */
 .router-link-active {
-  font-weight: bold !important;
-  color: #fff !important;
-}
-
-.nav-link {
-  transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-  color: #ccc !important;
-}
-
-/* Improve overall spacing */
-.container-custom {
-  max-width: 1200px;
+  --bs-nav-link-hover-color: rgba(255, 255, 255, 0.75) !important;
 }
 </style>

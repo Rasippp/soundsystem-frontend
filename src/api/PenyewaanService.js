@@ -1,7 +1,6 @@
-import axios from 'axios'
-const BASE_URL = 'http://localhost:8080/api/penyewaan'
+import api from './auth'
 
-export const getAllPenyewaan = () => axios.get(BASE_URL)
-export const getPenyewaanById = (id) => axios.get(`${BASE_URL}/${id}`)
-export const addPenyewaan = (data) => axios.post(BASE_URL, data)
-export const deletePenyewaan = (id) => axios.delete(`${BASE_URL}/${id}`)
+export const getAllPenyewaan = () => api.get('/penyewaan')
+export const getPenyewaanById = (id) => api.get(`/penyewaan/${id}`)
+export const addPenyewaan = (data) => api.post('/penyewaan', data)
+export const deletePenyewaan = (id) => api.delete(`/penyewaan/${id}`)

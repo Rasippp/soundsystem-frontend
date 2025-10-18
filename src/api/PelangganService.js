@@ -1,8 +1,7 @@
-import axios from 'axios';
-const BASE_URL = 'http://localhost:8080/api/pelanggan';
+import api from './auth'  // 👈 bukan dari axios lagi!
 
-export const getAllPelanggan = () => axios.get(BASE_URL);
-export const getPelangganById = (id) => axios.get(`${BASE_URL}/${id}`);
-export const addPelanggan = (data) => axios.post(BASE_URL, data);
-export const updatePelanggan = (id, data) => axios.put(`${BASE_URL}/${id}`, data);
-export const deletePelanggan = (id) => axios.delete(`${BASE_URL}/${id}`);
+export const getAllPelanggan = () => api.get('/pelanggan')
+export const getPelangganById = (id) => api.get(`/pelanggan/${id}`)
+export const addPelanggan = (data) => api.post('/pelanggan', data)
+export const updatePelanggan = (id, data) => api.put(`/pelanggan/${id}`, data)
+export const deletePelanggan = (id) => api.delete(`/pelanggan/${id}`)

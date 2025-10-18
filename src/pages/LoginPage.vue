@@ -1,44 +1,53 @@
 <template>
-  <div class="login-container">
-    <div class="login-form">
-      <h2>Login Sound System</h2>
-      
-      <form @submit.prevent="handleLogin">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            v-model="credentials.username"
-            required
-            :disabled="authStore.isLoading"
-          >
-        </div>
+  <div class="container">
+    <div class="row justify-content-center align-items-center min-vh-100">
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow">
+          <div class="card-body p-4">
+            <h2 class="text-center mb-4">Login Sound System</h2>
+            
+            <form @submit.prevent="handleLogin">
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  v-model="credentials.username"
+                  required
+                  :disabled="authStore.isLoading"
+                >
+              </div>
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            v-model="credentials.password"
-            required
-            :disabled="authStore.isLoading"
-          >
-        </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  v-model="credentials.password"
+                  required
+                  :disabled="authStore.isLoading"
+                >
+              </div>
 
-        <div v-if="authStore.error" class="error-message">
-          {{ typeof authStore.error === 'string' ? authStore.error : 'Login failed' }}
-        </div>
+              <div v-if="authStore.error" class="alert alert-danger">
+                {{ typeof authStore.error === 'string' ? authStore.error : 'Login failed' }}
+              </div>
 
-        <button 
-          type="submit" 
-          :disabled="authStore.isLoading"
-          class="login-btn"
-        >
-          <span v-if="authStore.isLoading">Loading...</span>
-          <span v-else>Login</span>
-        </button>
-      </form>
+              <button 
+                type="submit" 
+                class="btn btn-primary w-100"
+                :disabled="authStore.isLoading"
+              >
+                <span v-if="authStore.isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+                <span v-if="authStore.isLoading">Loading...</span>
+                <span v-else>Login</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -71,79 +80,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f5f5f5;
-}
-
-.login-form {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-  color: #333;
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  color: #555;
-}
-
-input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-input:focus {
-  outline: none;
-  border-color: #007bff;
-}
-
-.login-btn {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.login-btn:disabled {
-  background-color: #6c757d;
-  cursor: not-allowed;
-}
-
-.login-btn:hover:not(:disabled) {
-  background-color: #0056b3;
-}
-
-.error-message {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 0.75rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  border: 1px solid #f5c6cb;
-}
+/* Using Bootstrap classes - no custom CSS needed */
 </style>
