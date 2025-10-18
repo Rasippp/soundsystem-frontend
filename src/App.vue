@@ -27,8 +27,18 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/pelanggan">
-                <i class="bi bi-people"></i> Pelanggan
+              <router-link class="nav-link" to="/kontrak">
+                <i class="bi bi-file-earmark-text"></i> Kontrak
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/invoice">
+                <i class="bi bi-file-earmark-invoice"></i> Invoice
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/surat-jalan">
+                <i class="bi bi-truck"></i> Surat Jalan
               </router-link>
             </li>
             <li class="nav-item">
@@ -37,13 +47,8 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/penyewaan">
-                <i class="bi bi-clipboard-check"></i> Penyewaan
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/riwayat">
-                <i class="bi bi-clock-history"></i> Riwayat
+              <router-link class="nav-link" to="/pelanggan">
+                <i class="bi bi-people"></i> Pelanggan
               </router-link>
             </li>
           </ul>
