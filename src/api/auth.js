@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 // 🌐 Base URL ke backend Spring Boot
-const BASE_URL = 'http://localhost:8080/api'
-
+// const BASE_URL = 'http://localhost:8080/api'
+const BASE_URL = __BACKEND_URL__
 // 🔹 Buat instance axios utama
 const api = axios.create({
   baseURL: BASE_URL,
