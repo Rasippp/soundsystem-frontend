@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
-const backendURL = 'http://localhost:8080/api'
+const backendURL = 'https://soundsistembe1-j75wic79.b4a.run/api'
 export default defineConfig({
   plugins: [vue()],
    define: {
