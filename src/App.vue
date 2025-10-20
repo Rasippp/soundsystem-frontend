@@ -75,19 +75,22 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 // PERBAIKI IMPORT DI BAWAH INI:
-import { useAuthStore } from './stores/auth.js'  // Gunakan relative path
+import { useAuthStore } from './stores/auth.js'; // Gunakan relative path
 
-const authStore = useAuthStore()
+const authStore = useAuthStore();
+const router = useRouter();
 
 onMounted(() => {
-  authStore.initializeAuth()
-})
+  authStore.initializeAuth();
+});
 
 const handleLogout = () => {
-  authStore.logout()
-}
+  authStore.logout();
+  router.push('/login');
+};
 </script>
 
 <style>

@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import { authAPI } from '../api/auth.js'  // Relative path
+import router from '../router' // 1. Import router
+
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -31,8 +33,8 @@ export const useAuthStore = defineStore('auth', {
           localStorage.setItem('token', this.token)
           localStorage.setItem('user', JSON.stringify(this.user))
           
-          // Return success - redirect di component
-          return true
+          // 2. Redirect ke dashboard setelah login berhasil
+          router.push('/dashboard');
         }
       } catch (error) {
         this.error = error.response?.data || 'Login failed'
@@ -47,7 +49,7 @@ export const useAuthStore = defineStore('auth', {
       this.user = null
       localStorage.removeItem('token')
       localStorage.removeItem('user')
-      // Redirect akan dilakukan di component
+      
     },
 
     decodeToken(token) {
