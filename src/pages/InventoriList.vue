@@ -230,7 +230,7 @@ export default {
     },
   methods: {
     getFotoUrl(foto) {
-      return `http://localhost:8080/uploads/${foto}`
+      return `${this.backendUrl}/uploads/${foto}`
     },
     previewFoto(foto) {
       this.previewImage = foto
