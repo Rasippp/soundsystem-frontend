@@ -230,7 +230,11 @@ export default {
     },
   methods: {
     getFotoUrl(foto) {
-      return `${this.backendUrl}/uploads/${foto}`
+      // Perubahan: Backend mengirimkan string Base64, bukan nama file.
+      // Kita perlu membuat "Data URI" untuk menampilkannya.
+      // Formatnya: data:[<tipe_media>];base64,<data_base64>
+      // Kita asumsikan formatnya jpeg, yang umum untuk foto.
+      return `data:image/jpeg;base64,${foto}`
     },
     previewFoto(foto) {
       this.previewImage = foto
