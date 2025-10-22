@@ -32,6 +32,14 @@ const routes = [
     component: () => import('../pages/KontrakForm.vue'),
     meta: { requiresAuth: true }
   },
+ 
+  {
+  path: '/kontrak/:id',
+  name: 'KontrakDetail',
+  component: () => import('../pages/KontrakDetail.vue'),
+  meta: { requiresAuth: true }
+},
+
 
   // PELANGGAN ROUTES (Ditambahkan kembali)
   {
