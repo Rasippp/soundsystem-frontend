@@ -56,18 +56,18 @@ const routes = [
     component: () => import('../pages/InventoriList.vue'),
     meta: { requiresAuth: true }
   },
-  // {
-  //   path: '/inventori/create', // Dibuka komen & disesuaikan path
-  //   name: 'InventoryCreate',
-  //   component: () => import('../pages/InventoriForm.vue'),
-  //   meta: { requiresAuth: true }
-  // },
-  // {
-  //   path: '/inventori/:id/edit', // Dibuka komen & disesuaikan path
-  //   name: 'InventoryEdit',
-  //   component: () => import('../pages/InventoriForm.vue'),
-  //   meta: { requiresAuth: true }
-  // },
+  {
+    path: '/inventori/create', // Dibuka komen & disesuaikan path
+    name: 'InventoryCreate',
+    component: () => import('../pages/InventoriForm.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/inventori/:id/edit', // Dibuka komen & disesuaikan path
+    name: 'InventoryEdit',
+    component: () => import('../pages/InventoriForm.vue'),
+    meta: { requiresAuth: true }
+  },
 
   // SURAT JALAN ROUTES
   {
