@@ -51,6 +51,16 @@
                 <i class="bi bi-people"></i> Pelanggan
               </router-link>
             </li>
+             <li class="nav-item">
+              <router-link class="nav-link" to="/team">
+                <i class="bi bi-people-fill"></i> Team
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/jurnal">
+                <i class="bi bi-journal-text"></i> Jurnal
+              </router-link>
+            </li>
           </ul>
           
           <div class="navbar-nav ms-auto">
