@@ -96,6 +96,13 @@ const routes = [
     component: () => import('../pages/InvoiceList.vue'), // Path import disamakan
     meta: { requiresAuth: true }
   },
+
+  {
+    path: '/invoice/generate/:kontrakId',
+    name: 'InvoiceGenerate',
+    component: () => import('../pages/InvoiceGenerator.vue'),
+    meta: { requiresAuth: true }
+  },
   // {
   //   path: '/invoice/:id', // Dibuka komen & diubah dari '/invoices' (jamak)
   //   name: 'InvoiceDetail',
@@ -104,18 +111,26 @@ const routes = [
   // },
 
   // TEAM MANAGEMENT ROUTES
-  // {
-  //   path: '/teams', // Dibuka komen
-  //   name: 'TeamList',
-  //   component: () => import('../pages/TeamList.vue'), // Path import disamakan
-  //   meta: { requiresAuth: true }
-  // },
+    {
+    path: '/team',
+    name: 'TeamList',
+    component: () => import('../pages/TeamList.vue'),
+    meta: { requiresAuth: true }
+  },
   // {
   //   path: '/teams/create', // Dibuka komen
   //   name: 'TeamCreate',
   //   component: () => import('../pages/TeamForm.vue'), // Path import disamakan
   //   meta: { requiresAuth: true }
   // },
+
+  // ACCOUNTING/JURNAL ROUTES
+  {
+    path: '/jurnal',
+    name: 'JurnalList',
+    component: () => import('../pages/JurnalList.vue'),
+    meta: { requiresAuth: true }
+  },
 
   // ACCOUNTING/REPORTS ROUTES
   // {
