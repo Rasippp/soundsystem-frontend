@@ -138,7 +138,7 @@
                       class="btn btn-outline-success"
                       title="Generate Invoice"
                     >
-                      <i class="bi bi-file-earmark-invoice"></i>
+                      <i class="bi bi-receipt-cutoff"></i>
                     </button>
                     <button 
                       @click="buatSuratJalan(k.id)"

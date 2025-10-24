@@ -33,7 +33,7 @@
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/invoice">
-                <i class="bi bi-file-earmark-invoice"></i> Invoice
+                <i class="bi bi-receipt-cutoff"></i> Invoice
               </router-link>
             </li>
             <li class="nav-item">
