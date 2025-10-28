@@ -29,7 +29,7 @@
             />
           </div>
           <div class="col-md-2">
-            <button @click="loadInventori" class="btn btn-outline-primary w-100">
+            <button @click="() => loadInventori(true)" class="btn btn-outline-primary w-100">
               <i class="bi bi-arrow-clockwise me-1"></i>Refresh
             </button>
           </div>
@@ -52,7 +52,7 @@
     </div>
 
     <!-- Empty State -->
-    <div v-else-if="paginatedBarang.length === 0" class="text-center py-5">
+    <div v-else-if="inventori.length === 0" class="text-center py-5">
       <i class="bi bi-inbox display-1 text-muted"></i>
       <p class="text-muted mt-3">
         {{ searchQuery ? 'Inventori tidak ditemukan.' : 'Belum ada data inventori.' }}
@@ -80,8 +80,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(b, i) in paginatedBarang" :key="b.id">
-                <td class="px-3">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+              <tr v-for="(b, i) in inventori" :key="b.id">
+                <td class="px-3">{{ startIndex + i + 1 }}</td>
                 <td>{{ b.noInventaris }}</td>
                 <td><strong>{{ b.namaBarang }}</strong></td>
                 <td>{{ b.merek }}</td>
@@ -130,7 +130,7 @@
     <!-- Pagination -->
     <nav v-if="!loading && totalPages > 1" aria-label="Page navigation" class="mt-3 d-flex justify-content-center">
       <ul class="pagination flex-wrap">
-        <li class="page-item" :class="{ disabled: currentPage === 1 }">
+        <li class="page-item" :class="{ disabled: currentPage === 0 }">
           <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)" title="Halaman Sebelumnya">
             &laquo;
           </a>
@@ -139,14 +139,14 @@
           v-for="page in visiblePages"
           :key="page"
           class="page-item"
-          :class="{ active: currentPage === page, disabled: page === '...' }"
+          :class="{ active: currentPage === (page - 1), disabled: page === '...' }"
         >
           <a v-if="page !== '...'" class="page-link" href="#" @click.prevent="changePage(page)">
             {{ page }}
           </a>
           <span v-else class="page-link">...</span>
         </li>
-        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+        <li class="page-item" :class="{ disabled: currentPage === (totalPages - 1) }">
           <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)" title="Halaman Selanjutnya">
             &raquo;
           </a>
@@ -182,77 +182,66 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { getAllInventori, deleteInventori } from '../api/InventoriService'
 
 const router = useRouter()
 
-const allBarang = ref([])
+const inventori = ref([])
 const loading = ref(false)
 const previewImage = ref(null)
-const currentPage = ref(1)
+
+// State untuk paginasi backend
+const currentPage = ref(0) // Backend menggunakan 0-based index
 const itemsPerPage = ref(10)
+const totalItems = ref(0)
+const totalPages = ref(0)
 const searchQuery = ref('')
 
-const filteredBarang = computed(() => {
-  if (!searchQuery.value) {
-    return allBarang.value
-  }
-  const q = searchQuery.value.toLowerCase()
-  return allBarang.value.filter(b => 
-    (b.namaBarang && b.namaBarang.toLowerCase().includes(q)) ||
-    (b.merek && b.merek.toLowerCase().includes(q)) ||
-    (b.noInventaris && b.noInventaris.toLowerCase().includes(q))
-  )
-})
-
-const totalItems = computed(() => filteredBarang.value.length)
-const totalPages = computed(() => Math.ceil(totalItems.value / itemsPerPage.value))
-
-const paginatedBarang = computed(() => {
-  if (currentPage.value > totalPages.value && totalPages.value > 0) {
-    currentPage.value = 1
-  }
-  const start = (currentPage.value - 1) * itemsPerPage.value
-  const end = start + itemsPerPage.value
-  return filteredBarang.value.slice(start, end)
-})
+// Untuk penomoran tabel
+const startIndex = computed(() => currentPage.value * itemsPerPage.value)
 
 const visiblePages = computed(() => {
   const total = totalPages.value
-  const current = currentPage.value
+  const current = currentPage.value + 1 // Ubah ke 1-based untuk kalkulasi
   const maxVisible = 5
 
   if (total <= maxVisible) {
     return Array.from({ length: total }, (_, i) => i + 1)
   }
 
-  let start = Math.max(1, current - Math.floor(maxVisible / 2))
-  let end = Math.min(total, start + maxVisible - 1)
+  let startPage = Math.max(1, current - Math.floor(maxVisible / 2))
+  let endPage = Math.min(total, startPage + maxVisible - 1)
 
-  if (end - start + 1 < maxVisible) {
-    start = Math.max(1, end - maxVisible + 1)
+  if (endPage - startPage + 1 < maxVisible) {
+    startPage = Math.max(1, endPage - maxVisible + 1)
   }
 
-  const pages = Array.from({ length: (end - start + 1) }, (_, i) => start + i)
+  const pages = Array.from({ length: (endPage - startPage + 1) }, (_, i) => startPage + i)
 
-  if (start > 1) {
+  if (startPage > 1) {
     pages.unshift('...')
     pages.unshift(1)
   }
-  if (end < total) {
+  if (endPage < total) {
     pages.push('...')
     pages.push(total)
   }
   return pages
 })
 
-const loadInventori = async () => {
+const loadInventori = async (resetPage = false) => {
+  if (resetPage) {
+    currentPage.value = 0
+  }
   loading.value = true
   try {
-    const res = await getAllInventori()
-    allBarang.value = res.data
+    const res = await getAllInventori(currentPage.value, itemsPerPage.value, searchQuery.value)
+    const data = res.data
+    inventori.value = data.content
+    totalItems.value = data.totalElements
+    totalPages.value = data.totalPages
   } catch (err) {
     console.error('❌ Gagal memuat data inventori:', err)
     alert('Gagal mengambil data inventori. Coba login ulang atau cek koneksi.')
@@ -261,14 +250,23 @@ const loadInventori = async () => {
   }
 }
 
+// Panggil saat komponen pertama kali dimuat
 onMounted(loadInventori)
+
+// Panggil ulang API saat itemsPerPage atau searchQuery berubah
+watch([itemsPerPage, searchQuery], () => {
+  loadInventori(true) // Reset ke halaman pertama
+})
 
 const getFotoUrl = (foto) => `data:image/jpeg;base64,${foto}`
 const previewFoto = (foto) => { previewImage.value = foto }
 
 const changePage = (page) => {
-  if (page !== '...' && page >= 1 && page <= totalPages.value) {
-    currentPage.value = page
+  // Backend 0-based, UI 1-based
+  const targetPage = page - 1
+  if (page !== '...' && targetPage >= 0 && targetPage < totalPages.value) {
+    currentPage.value = targetPage
+    loadInventori()
   }
 }
 
@@ -277,8 +275,8 @@ const hapusInventori = async (id) => {
 
   try {
     await deleteInventori(id)
-    alert('✅ Inventori berhasil dihapus')
-    allBarang.value = allBarang.value.filter(item => item.id !== id)
+    alert('✅ Inventori berhasil dihapus.')
+    loadInventori() // Muat ulang data di halaman saat ini
   } catch (err) {
     console.error('Error delete inventori:', err)
     alert('❌ Gagal menghapus inventori. ' + (err.response?.data?.message || err.message))

@@ -145,14 +145,11 @@
                       <small>{{ formatDate(k.tanggalMulai) }}</small>
                     </td>
                     <td>
-                      <span 
-                        class="badge"
-                        :class="{
-                          'bg-success': k.status === 'aktif',
-                          'bg-secondary': k.status === 'selesai',
-                          'bg-danger': k.status === 'batal'
-                        }"
-                      >
+                      <span class="badge" :class="{
+                        'bg-success': k.status === 'aktif',
+                        'bg-secondary': k.status === 'selesai',
+                        'bg-danger': k.status === 'batal'
+                      }">
                         {{ k.status }}
                       </span>
                     </td>
@@ -211,10 +208,7 @@
               </div>
             </div>
             <div class="progress mb-3" style="height: 10px;">
-              <div 
-                class="progress-bar bg-danger" 
-                :style="{ width: invoiceProgressBelum + '%' }"
-              ></div>
+              <div class="progress-bar bg-danger" :style="{ width: invoiceProgressBelum + '%' }"></div>
             </div>
 
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -227,10 +221,7 @@
               </div>
             </div>
             <div class="progress" style="height: 10px;">
-              <div 
-                class="progress-bar bg-success" 
-                :style="{ width: invoiceProgressLunas + '%' }"
-              ></div>
+              <div class="progress-bar bg-success" :style="{ width: invoiceProgressLunas + '%' }"></div>
             </div>
           </div>
         </div>
@@ -255,27 +246,17 @@
               Belum ada aktivitas
             </div>
             <div v-else class="activity-timeline">
-              <div 
-                v-for="activity in recentActivity" 
-                :key="activity.id"
-                class="activity-item"
-              >
-                <div 
-                  class="activity-icon"
-                  :class="{
-                    'bg-success': activity.type === 'kontrak',
-                    'bg-primary': activity.type === 'invoice',
-                    'bg-warning': activity.type === 'surat-jalan'
-                  }"
-                >
-                  <i 
-                    class="bi"
-                    :class="{
-                      'bi-file-earmark-text': activity.type === 'kontrak',
-                      'bi-file-earmark-invoice': activity.type === 'invoice',
-                      'bi-truck': activity.type === 'surat-jalan'
-                    }"
-                  ></i>
+              <div v-for="activity in recentActivity" :key="activity.id" class="activity-item">
+                <div class="activity-icon" :class="{
+                  'bg-success': activity.type === 'kontrak',
+                  'bg-primary': activity.type === 'invoice',
+                  'bg-warning': activity.type === 'surat-jalan'
+                }">
+                  <i class="bi" :class="{
+                    'bi-file-earmark-text': activity.type === 'kontrak',
+                    'bi-file-earmark-invoice': activity.type === 'invoice',
+                    'bi-truck': activity.type === 'surat-jalan'
+                  }"></i>
                 </div>
                 <div class="activity-content">
                   <p class="mb-1">{{ activity.message }}</p>
@@ -339,12 +320,12 @@ const loadDashboardData = async () => {
     // Load kontrak
     const resKontrak = await api.get('/kontrak')
     const kontrakData = resKontrak.data
-    
+
     stats.value.totalKontrak = kontrakData.length
     stats.value.pendapatan = kontrakData
       .filter(k => k.status !== 'batal')
       .reduce((sum, k) => sum + (k.hargaSewa || 0), 0)
-    
+
     recentKontrak.value = kontrakData
       .sort((a, b) => new Date(b.tanggalMulai) - new Date(a.tanggalMulai))
       .slice(0, 5)
@@ -352,14 +333,14 @@ const loadDashboardData = async () => {
     // Load invoice
     const resInvoice = await api.get('/invoice')
     const invoiceData = resInvoice.data
-    
+
     stats.value.invoiceBelumBayar = invoiceData.filter(i => i.status === 'belum').length
     stats.value.invoiceLunas = invoiceData.filter(i => i.status === 'lunas').length
 
     // Load barang keluar
     const resBarang = await api.get('/barangkeluar')
     const barangData = resBarang.data
-    
+
     stats.value.barangDipinjam = barangData.filter(b => b.status === 'Dipinjam').length
 
     // Load inventori
