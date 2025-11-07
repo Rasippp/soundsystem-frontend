@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { getAllPelanggan } from '../api/PelangganService';
+import { getAllPelanggan } from '../../api/PelangganService';
 
 export default {
   name: 'PelangganList',

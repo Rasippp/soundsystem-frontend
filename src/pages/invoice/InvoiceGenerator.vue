@@ -30,18 +30,20 @@
               <div class="col-6">
                 <h6 class="text-uppercase fw-bold mb-3">Detail Acara:</h6>
                 <table class="table table-sm table-borderless">
-                  <tr>
-                    <td width="100">Venue</td>
-                    <td>: {{ kontrak.venue }}</td>
-                  </tr>
-                  <tr>
-                    <td>Acara</td>
-                    <td>: {{ kontrak.acara }}</td>
-                  </tr>
-                  <tr>
-                    <td>Tanggal</td>
-                    <td>: {{ formatDate(kontrak.tanggalMulai) }}</td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <td width="100">Venue</td>
+                      <td>: {{ kontrak.venue }}</td>
+                    </tr>
+                    <tr>
+                      <td>Acara</td>
+                      <td>: {{ kontrak.acara }}</td>
+                    </tr>
+                    <tr>
+                      <td>Tanggal</td>
+                      <td>: {{ formatDate(kontrak.tanggalMulai) }}</td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </div>
@@ -140,7 +142,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import api from '../api/auth'
+import api from '../../api/auth'
 
 const route = useRoute()
 const router = useRouter()

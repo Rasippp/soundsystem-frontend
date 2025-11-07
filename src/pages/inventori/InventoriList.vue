@@ -141,7 +141,7 @@
           class="page-item"
           :class="{ active: currentPage === (page - 1), disabled: page === '...' }"
         >
-          <a v-if="page !== '...'" class="page-link" href="#" @click.prevent="changePage(page)">
+          <a v-if="page !== '...'" class="page-link" href="#" @click.prevent="changePage(page - 1)">
             {{ page }}
           </a>
           <span v-else class="page-link">...</span>
@@ -184,7 +184,7 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { getAllInventori, deleteInventori } from '../api/InventoriService'
+import { getAllInventori, deleteInventori } from '../../api/InventoriService'
 
 const router = useRouter()
 
@@ -262,10 +262,9 @@ const getFotoUrl = (foto) => `data:image/jpeg;base64,${foto}`
 const previewFoto = (foto) => { previewImage.value = foto }
 
 const changePage = (page) => {
-  // Backend 0-based, UI 1-based
-  const targetPage = page - 1
-  if (page !== '...' && targetPage >= 0 && targetPage < totalPages.value) {
-    currentPage.value = targetPage
+  // 'page' sekarang adalah target halaman berbasis nol (0-based)
+  if (page >= 0 && page < totalPages.value) {
+    currentPage.value = page
     loadInventori()
   }
 }

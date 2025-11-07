@@ -328,7 +328,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import api from '../api/auth'
+import api from '../../api/auth'
 
 const router = useRouter()
 const route = useRoute()

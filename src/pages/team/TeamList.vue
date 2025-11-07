@@ -281,7 +281,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import api from '../api/auth'
+import api from '../../api/auth'
 import { Modal } from 'bootstrap'
 
 const loading = ref(false)

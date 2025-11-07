@@ -88,7 +88,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getInventoriById, addInventori, updateInventori } from '../api/InventoriService'
+import { getInventoriById, addInventori, updateInventori } from '../../api/InventoriService'
 
 const route = useRoute()
 const router = useRouter()

@@ -17,26 +17,26 @@ const routes = [
   {
     path: '/kontrak',
     name: 'KontrakList',
-    component: () => import('../pages/KontrakList.vue'),
+    component: () => import('../pages/kontrak/KontrakList.vue'),
     meta: { requiresAuth: true }
   },
   {
     path: '/kontrak/create',
     name: 'KontrakCreate',
-    component: () => import('../pages/KontrakForm.vue'),
+    component: () => import('../pages/kontrak/KontrakForm.vue'),
     meta: { requiresAuth: true }
   },
   {
     path: '/kontrak/:id/edit',
     name: 'KontrakEdit',
-    component: () => import('../pages/KontrakForm.vue'),
+    component: () => import('../pages/kontrak/KontrakForm.vue'),
     meta: { requiresAuth: true }
   },
  
   {
   path: '/kontrak/:id',
   name: 'KontrakDetail',
-  component: () => import('../pages/KontrakDetail.vue'),
+  component: () => import('../pages/kontrak/KontrakDetail.vue'),
   meta: { requiresAuth: true }
 },
 
@@ -45,7 +45,7 @@ const routes = [
   {
     path: '/pelanggan',
     name: 'PelangganList',
-    component: () => import('../pages/PelangganList.vue'),
+    component: () => import('../pages/pelanggan/PelangganList.vue'),
     meta: { requiresAuth: true }
   },
 
@@ -53,19 +53,19 @@ const routes = [
   {
     path: '/inventori', // Diubah dari '/inventory' (pake y)
     name: 'InventoryList',
-    component: () => import('../pages/InventoriList.vue'),
+    component: () => import('../pages/inventori/InventoriList.vue'),
     meta: { requiresAuth: true }
   },
   {
     path: '/inventori/create', // Dibuka komen & disesuaikan path
     name: 'InventoryCreate',
-    component: () => import('../pages/InventoriForm.vue'),
+    component: () => import('../pages/inventori/InventoriForm.vue'),
     meta: { requiresAuth: true }
   },
   {
     path: '/inventori/:id/edit', // Dibuka komen & disesuaikan path
     name: 'InventoryEdit',
-    component: () => import('../pages/InventoriForm.vue'),
+    component: () => import('../pages/inventori/InventoriForm.vue'),
     meta: { requiresAuth: true }
   },
 
@@ -73,13 +73,13 @@ const routes = [
   {
     path: '/surat-jalan',
     name: 'SuratJalanList',
-    component: () => import('../pages/SuratJalanList.vue'),
+    component: () => import('../pages/suratJalan/SuratJalanList.vue'),
     meta: { requiresAuth: true }
   },
   {
     path: '/surat-jalan/create',
     name: 'SuratJalanCreate',
-    component: () => import('../pages/SuratJalanForm.vue'),
+    component: () => import('../pages/suratJalan/SuratJalanForm.vue'),
     meta: { requiresAuth: true }
   },
   // {
@@ -93,14 +93,14 @@ const routes = [
   {
     path: '/invoice', // Dibuka komen & diubah dari '/invoices' (jamak)
     name: 'InvoiceList',
-    component: () => import('../pages/InvoiceList.vue'), // Path import disamakan
+    component: () => import('../pages/invoice/InvoiceList.vue'), // Path import disamakan
     meta: { requiresAuth: true }
   },
 
   {
     path: '/invoice/generate/:kontrakId',
     name: 'InvoiceGenerate',
-    component: () => import('../pages/InvoiceGenerator.vue'),
+    component: () => import('../pages/invoice/InvoiceGenerator.vue'),
     meta: { requiresAuth: true }
   },
   // {
@@ -114,7 +114,7 @@ const routes = [
     {
     path: '/team',
     name: 'TeamList',
-    component: () => import('../pages/TeamList.vue'),
+    component: () => import('../pages/team/TeamList.vue'),
     meta: { requiresAuth: true }
   },
   // {
@@ -128,7 +128,7 @@ const routes = [
   {
     path: '/jurnal',
     name: 'JurnalList',
-    component: () => import('../pages/JurnalList.vue'),
+    component: () => import('../pages/jurnal/JurnalList.vue'),
     meta: { requiresAuth: true }
   },
 
