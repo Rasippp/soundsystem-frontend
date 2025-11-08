@@ -39,7 +39,18 @@ const routes = [
   component: () => import('../pages/kontrak/KontrakDetail.vue'),
   meta: { requiresAuth: true }
 },
-
+{
+  path: '/kontrak/create-with-paket',
+  name: 'KontrakCreateWithPaket',
+  component: () => import('../pages/kontrak/KontrakFormPaket.vue'),
+  meta: { requiresAuth: true }
+},
+{
+  path: '/kontrak/paket',
+  name: 'KontrakPaketList',
+  component: () => import('../pages/kontrak/KontrakListPaket.vue'),
+  meta: { requiresAuth: true }
+},
 
   // PELANGGAN ROUTES (Ditambahkan kembali)
   {
